@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="Submit.js"></script>
+	<title>Arthur's personal home page</title>
+	<link rel="stylesheet" href="HomePage.css">
+</head>
+<body>
+	<header>
+		<div class="headerBackground">
+			<p class="name">Arthur Wang</p>
+		</div>
+	</header>
+	<main>
+		<section style="background-color: rgb(190, 190, 190);">
+			<h1>Introduction</h1>
+				<p>
+				No one can stop a man from getting closer to what he dream about. This is a story about a real man who approach his goal by never giving up.
+				</p>
+		</section>
+		<section style="background-color: rgb(110, 110, 110);">
+			<h1 style="color: white;">Learning Skills</h1>
+				<div class="block">
+					<h2>C++</h2>
+					<p style="color: white;">
+						Learned C, C++ and Unix operating system from book and videos by my self. Knows how to operating files, process, signals and sockets. Experienced with C++ OOP, generics and lambda expressions.
+					</p>
+				</div>
+				<div class="block">
+					<h2>Java</h2>
+					<p style="color: white;">
+						Mostly learned Java by my self, my school teached some java but not as much as I learned. Experienced with Java IOs, Sockets, OOP, Multithreads, generics and lambda expressions. 
+					</p>
+				</div>
+				<div class="block">
+					<h2>Swift</h2>
+					<p style="color: white;">
+						I learned Swift long ago from Swift 3 to Swift 4, confident of majorities features in Swift 4, protocols, enums, generics, extensions, lambda expression, linking with Objective C, iOS UIKit and MacOS Cocoa.
+					</p>
+				</div>
+				<div class="block">
+					<h2>Web Development</h2>
+					<p style="color: white;">
+						I aquired my Web Development skills recently with html+css+javasript. Knows how does it work with browser and my server. Just like this website that you are browsing right now.
+					</p>
+				</div>
+		</section>
+		<section style="background-color: rgb(190, 190, 190);">
+			<h1>With a Little Talent on Art<h1>
+				<div class="Art" style="background-image: url('img/Art1.jpg');">
+					<div class="ArtCaption">
+						<p class="CaptionText">
+							Paint from the movie Lawrence of Arabia
+						</p>
+					</div>
+				</div>
+				<div class="Art" style="background-image: url('img/Art2.jpg');">
+					<div class="ArtCaption">
+						<p class="CaptionText">
+							Paint from the movie Lawrence of Arabia
+						</p>
+					</div>
+				</div>
+		</section>
+		<section style="background-color: rgb(250, 250, 250);">
+			<h1>Contact for Bussiness Purpose</h1>
+			<form action="contact" onsubmit="submit()" method="POST">
+				<label for="firstName">First name:</label>
+				<input type="text" id="firstName" name="firstName"><br>
+				<label for="lastName">Last name:</label>
+				<input type="text" id="lastName" name="lastName"><br>
+				<label for="email">Email:</label>
+				<input type="text" id="email" name="email"><br>
+				<label for="content">Conetent:</label><br>
+				<textarea id="content" name="content" cols="40" rows="5"></textarea>
+				<input type="submit" value="Submit">
+			</form>
+		</section>
+	</main>
+	<footer>
+		<h1>Contact</h1>
+			<p>Email: arthurwangzihao@gmail.com</p>
+			<p>Phone: +1 (614)966-9595</p>
+	</footer>
+</body>
+</html>
