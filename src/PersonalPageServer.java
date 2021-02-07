@@ -1,13 +1,24 @@
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
-public class PersonalPageServer extends ServerTask{
+public class PersonalPageServer extends ServerTask {
 	public static void main(String args[]) {
-		HTTPServer server = new HTTPServer(new PersonalPageServer());	
+		PersonalPageServer task = new PersonalPageServer();
+		task.registerDynamicPage("/contact", new ContactPage());	
+		HTTPServer server = new HTTPServer(task);	
 		server.start();
 	}
+	private HashMap<String, DynamicPage> dynamicPageList = new HashMap<String, DynamicPage>();
+	private HTTPMethod method = HTTPMethod.GET;
 	private String filePath = "";
 	private String content = "";
+
+	public void registerDynamicPage(String key, DynamicPage page) {
+		dynamicPageList.put(key, page);
+		System.out.println("dynamic page registered: " + key);
+	}
+
 	protected void questDidRecieved(InputStream in) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		String line = "";
@@ -22,10 +33,13 @@ public class PersonalPageServer extends ServerTask{
 					if (args[0].equals("GET")) {
 						System.out.println("Going to respond GET");
 						this.filePath = args[1];
+						method = HTTPMethod.GET;
 					}
 					if (args[0].equals("POST")) {
 						System.out.println("Going to respond POST");
+						this.filePath = args[1];
 						havingContent = true;
+						method = HTTPMethod.POST;
 					}
 					if (args[0].equals("Content-Length:")) {
 						contentSize = Integer.parseInt(args[1]);
@@ -76,10 +90,7 @@ public class PersonalPageServer extends ServerTask{
 		System.out.println(this.content);
 	}
 
-	protected void sendResponse(OutputStream out) {
-		PrintWriter writer = new PrintWriter(out);
-		HTTPServer.printSucceedHeader(writer);
-		String path = "../webPage" + filePath;
+	protected void sendStaticSource(String path, PrintWriter writer, OutputStream out) {
 		File file = new File(path);
 		ContentType type = ContentType.UNKNOWN;
 		if (filePath.split("\\.").length == 2) {
@@ -104,6 +115,28 @@ public class PersonalPageServer extends ServerTask{
 			default:
 				SocketFileIO.sendTextFile(writer, path);
 				break;
+		}
+	}
+	protected void sendResponse(OutputStream out) {
+		PrintWriter writer = new PrintWriter(out);
+		HTTPServer.printSucceedHeader(writer);
+		System.out.println(filePath);
+		if (dynamicPageList.containsKey(filePath)) {
+			System.out.println("this is dynamic");
+			switch (method) {
+				case GET:
+			System.out.println("this is get");
+					dynamicPageList.get(filePath).get(content, out);
+					break;
+				case POST:
+			System.out.println("this is post");
+					dynamicPageList.get(filePath).post(content, out);
+					break;
+			}
+		} else {
+			System.out.println("this is static");
+			String path = "../webPage" + filePath;
+			sendStaticSource(path, writer, out);
 		}
 		writer.close();
 	}
