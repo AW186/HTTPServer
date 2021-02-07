@@ -47,7 +47,7 @@ class ContactPage implements DynamicPage {
 				dict.containsKey("content");
 			System.out.println(isFormatCorrect ? "valid input" : "invalid input");
 			if (isFormatCorrect) {
-				SimpleDateFormat f  = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat f  = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
 				String date = f.format(new Date(System.currentTimeMillis()));
 				String fileName = "../../Messages/" + 
 					dict.get("firstName") +
@@ -76,6 +76,10 @@ class ContactPage implements DynamicPage {
 	}
 
 	private void sendResponse(String args, OutputStream out) {
-		
+		PrintWriter writer = new PrintWriter(out);
+		HTTPServer.printSucceedHeader(writer);	
+		writer.println("");
+		SocketFileIO.sendTextFile(writer, "../webPage/contact.html");
+		writer.close();
 	}
 }

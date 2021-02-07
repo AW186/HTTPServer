@@ -122,19 +122,15 @@ public class PersonalPageServer extends ServerTask {
 		HTTPServer.printSucceedHeader(writer);
 		System.out.println(filePath);
 		if (dynamicPageList.containsKey(filePath)) {
-			System.out.println("this is dynamic");
 			switch (method) {
 				case GET:
-			System.out.println("this is get");
 					dynamicPageList.get(filePath).get(content, out);
 					break;
 				case POST:
-			System.out.println("this is post");
 					dynamicPageList.get(filePath).post(content, out);
 					break;
 			}
 		} else {
-			System.out.println("this is static");
 			String path = "../webPage" + filePath;
 			sendStaticSource(path, writer, out);
 		}
