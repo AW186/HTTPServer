@@ -25,7 +25,8 @@ public class HTTPServer {
 				Socket client = server.accept();
 				System.out.println("Connected to a client");
 				task.setClient(client);			
-				task.start();
+				Thread thread = new Thread(task);
+				thread.start();
 			} catch(Exception e) {
 				System.out.println("Error " + e);
 			}

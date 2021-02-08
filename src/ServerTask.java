@@ -1,7 +1,8 @@
 import java.io.*;
 import java.net.*;
+import java.lang.Runnable;
 
-public class ServerTask extends Thread {
+public class ServerTask implements Runnable {
 	private Socket client;
 	private boolean enable = false;
 	ServerTask() {
