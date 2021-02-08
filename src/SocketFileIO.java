@@ -15,11 +15,11 @@ public class SocketFileIO {
 		return "";
 	}
 
-	public static void sendTextFile(Socket sock, String path) {
+	public static synchronized void sendTextFile(Socket sock, String path) {
 		
 	}
 
-	public static void sendTextFile(PrintWriter out, String path) {
+	public static synchronized void sendTextFile(PrintWriter out, String path) {
 		File file = new File(path);
 		
 		if(file.exists() && !file.isDirectory()) { 
@@ -41,7 +41,7 @@ public class SocketFileIO {
 		}
 	}
 
-	public static void sendImageFile(OutputStream out, String path) {
+	public static synchronized void sendImageFile(OutputStream out, String path) {
 		BufferedImage img;
 		File file = new File(path);
 		if(file.exists() && !file.isDirectory()) { 

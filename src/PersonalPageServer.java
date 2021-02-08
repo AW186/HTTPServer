@@ -139,9 +139,13 @@ public class PersonalPageServer extends ServerTask {
 	private void get(String arg) {
 		this.filePath = arg;
 	}
+	protected ServerTask duplicate() {			
+		PersonalPageServer task = new PersonalPageServer();
+		task.setClient(client);
+		task.registerDynamicPage("/contact", new ContactPage());	
+		return task;
+	}
 }
-
-
 
 
 
